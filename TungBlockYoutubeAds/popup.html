@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Tùng chặn quảng cáo YouTube</title>
+  <style>
+    body {
+      width: 220px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+    }
+    h3 {
+      margin-top: 0;
+      color: #c00;
+    }
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      margin: 15px 0;
+    }
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+      margin-right: 10px;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #c00;
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    .status {
+      font-weight: bold;
+    }
+    .feature-name {
+      font-size: 14px;
+      margin-right: 5px;
+    }
+    .divider {
+      border-top: 1px solid #e0e0e0;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+  <h3>Tùng chặn quảng cáo YouTube</h3>
+  
+  <div class="toggle-container">
+    <span class="feature-name">Tự động xác nhận</span>
+    <label class="toggle-switch">
+      <input type="checkbox" id="toggleButton">
+      <span class="slider"></span>
+    </label>
+    <span class="status" id="statusText">Đang tắt</span>
+  </div>
+  
+  <div class="divider"></div>
+  
+  <div class="toggle-container">
+    <span class="feature-name">Chặn quảng cáo</span>
+    <label class="toggle-switch">
+      <input type="checkbox" id="adBlockToggle">
+      <span class="slider"></span>
+    </label>
+    <span class="status" id="adBlockStatus">Đang tắt</span>
+  </div>
+  
+  <p style="font-size: 12px; margin-top: 15px;">
+    - Tự động bỏ qua "Bạn vẫn đang xem?"<br>
+    - Tự động bỏ qua quảng cáo YouTube
+  </p>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

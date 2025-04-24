@@ -1,0 +1,31 @@
+{
+    "manifest_version": 3,
+    "name": "Tùng chặn quảng cáo youtube",
+    "version": "1.1",
+    "description": "Bạn không có youtube premium? Không sao để Tùng lo cho bạn",
+    "permissions": ["activeTab", "scripting", "storage"],
+    "host_permissions": ["*://*.youtube.com/*"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://*.youtube.com/*"],
+        "js": ["content.js"]
+      }
+    ],
+    "icons": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    },
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+      },
+      "default_title": "YouTube Enhancer"
+    }
+  }

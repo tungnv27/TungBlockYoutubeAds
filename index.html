@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tùng chặn quảng cáo cho bạn - Extension Tăng Cường Trải Nghiệm YouTube</title>
+    <link rel="icon" href="images/icon128.png" type="image/png">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        :root {
+            --primary: #ff0000;
+            --primary-dark: #cc0000;
+            --secondary: #282828;
+            --light: #f9f9f9;
+            --gray: #f1f1f1;
+            --dark: #1f1f1f;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #121212, #282828);
+            color: white;
+            padding: 10rem 0 8rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--light);
+            clip-path: polygon(0 40%, 100% 0, 100% 100%, 0% 100%);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
+        }
+        
+        .features {
+            padding: 6rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #666;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .installation {
+            background-color: var(--gray);
+            padding: 6rem 0;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .tab-content {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 2rem;
+            align-items: flex-start;
+        }
+        
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-img {
+            margin-top: 1rem;
+            max-width: 100%;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 2px solid var(--gray);
+        }
+        
+        .faq {
+            padding: 6rem 0;
+        }
+        
+        .accordion {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .accordion-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        
+        .accordion-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .accordion-content {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-content.active {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 1000px;
+        }
+        
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .download-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: white;
+        }
+        
+        .download-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray);
+        }
+        
+        .download-version {
+            display: inline-block;
+            background: var(--gray);
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .download-buttons {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+        
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-size: 0.9rem;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fab fa-youtube fa-2x" style="color: var(--primary);"></i>
+                    <h1>Tùng Block <span>Youtube</span> Ads</h1>
+                </div>
+                <a href="#download" class="btn"><i class="fas fa-download"></i> Tải Extension</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 data-aos="fade-up">Trải Nghiệm YouTube Không Gián Đoạn</h1>
+            <p data-aos="fade-up" data-aos-delay="100">Tự động bỏ qua popup xác nhận "Bạn vẫn đang xem?" và chặn quảng cáo YouTube để có trải nghiệm xem video liền mạch.</p>
+            <a href="#download" class="btn" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-download"></i> Tải Extension</a>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-aos="fade-up">Tính Năng Chính</h2>
+                <p data-aos="fade-up" data-aos-delay="100">Tùng chặn quảng cáo giúp nâng cao trải nghiệm xem YouTube của bạn với các công cụ hữu ích.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Tự Động Xác Nhận</h3>
+                    <p>Tự động bỏ qua hộp thoại "Bạn vẫn đang xem?" để không bị gián đoạn khi xem playlist hoặc autoplay.</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h3>Chặn Quảng Cáo</h3>
+                    <p>Tự động bỏ qua và chặn các loại quảng cáo video và overlay trên YouTube.</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <h3>Tùy Chỉnh Linh Hoạt</h3>
+                    <p>Dễ dàng bật tắt từng tính năng theo nhu cầu sử dụng của bạn.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Download Section -->
+    <section class="download-section" id="download">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-aos="fade-up">Tải Extension</h2>
+                <p data-aos="fade-up" data-aos-delay="100">Tải xuống TungBlockYoutubeAds và bắt đầu trải nghiệm YouTube không gián đoạn.</p>
+            </div>
+            
+            <div class="download-card" data-aos="fade-up" data-aos-delay="200">
+                <span class="download-version">Phiên bản 1.1</span>
+                <h3>TungBlockYoutubeAds</h3>
+                <p>Tải xuống file ZIP và cài đặt theo hướng dẫn bên dưới.</p>
+                
+                <div class="download-buttons">
+                    <a href="#" class="btn" onclick="simulateDownload()">
+                        <i class="fas fa-download"></i> Tải Extension (ZIP)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Installation Guide -->
+    <section class="installation" id="installation">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-aos="fade-up">Hướng Dẫn Cài Đặt</h2>
+                <p data-aos="fade-up" data-aos-delay="100">Chọn trình duyệt của bạn và làm theo các bước dưới đây.</p>
+            </div>
+            
+            <div class="tabs" data-aos="fade-up" data-aos-delay="200">
+                <button class="tab-btn active" data-tab="chrome">Google Chrome</button>
+                <button class="tab-btn" data-tab="edge">Microsoft Edge</button>
+            </div>
+            
+            <!-- Chrome Installation -->
+            <div class="tab-content active" data-tab="chrome" data-aos="fade-up" data-aos-delay="300">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Giải nén file ZIP</h4>
+                        <p>Sau khi tải xuống, hãy giải nén file ZIP vào một thư mục trên máy tính của bạn.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Mở trang Extensions</h4>
+                        <p>Mở Google Chrome, nhập <strong>chrome://extensions/</strong> vào thanh địa chỉ và nhấn Enter.</p>
+                        <img src="images/hdcaidat-chrome-1.png" alt="Chrome Extensions Page" class="step-img">
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Bật Developer Mode</h4>
+                        <p>Bật chế độ "Developer mode" ở góc phải trên cùng của trang.</p>
+                        <img src="images/hdcaidat-chrome-2.png" alt="Enable Developer Mode" class="step-img">
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Tải extension</h4>
+                        <p>Nhấp vào nút "Load unpacked" và chọn thư mục đã giải nén extension.</p>
+                        <img src="images/hdcaidat-chrome-3.png" alt="Load Unpacked Extension" class="step-img">
+                        <img src="images/hdcaidat-chrome-4.png" alt="Load Unpacked Extension" class="step-img">
+
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Sử dụng extension</h4>
+                        <p>YouTube Enhancer đã được cài đặt. Bạn có thể nhấp vào biểu tượng extension để tùy chỉnh các tính năng.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Edge Installation -->
+            <div class="tab-content" data-tab="edge" data-aos="fade-up" data-aos-delay="300">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Giải nén file ZIP</h4>
+                        <p>Sau khi tải xuống, hãy giải nén file ZIP vào một thư mục trên máy tính của bạn.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Mở trang Extensions</h4>
+                        <p>Mở Microsoft Edge, nhập <strong>edge://extensions/</strong> vào thanh địa chỉ và nhấn Enter.</p>
+                        <img src="images/hdcaidat-edge-1.png" alt="Edge Extensions Page" class="step-img">
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Bật Developer Mode</h4>
+                        <p>Bật chuyển đổi "Developer mode" ở góc trái dưới cùng của trang.</p>
+                        <img src="images/hdcaidat-edge-2.png" alt="Enable Developer Mode Edge" class="step-img">
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Tải extension</h4>
+                        <p>Nhấp vào nút "Load unpacked" và chọn thư mục đã giải nén extension.</p>
+                        <img src="images/hdcaidat-edge-3.png" alt="Load Unpacked Extension Edge" class="step-img">
+                        <img src="images/hdcaidat-edge-4.png" alt="Load Unpacked Extension Edge" class="step-img">
+
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Sử dụng extension</h4>
+                        <p>YouTube Enhancer đã được cài đặt. Bạn có thể nhấp vào biểu tượng extension để tùy chỉnh các tính năng.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-aos="fade-up">Câu Hỏi Thường Gặp</h2>
+                <p data-aos="fade-up" data-aos-delay="100">Giải đáp những thắc mắc phổ biến về YouTube Enhancer.</p>
+            </div>
+            
+            <div class="accordion" data-aos="fade-up" data-aos-delay="200">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Extension có an toàn không?</span>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Có, YouTube Enhancer hoàn toàn an toàn. Extension chỉ hoạt động trên trang YouTube và không thu thập bất kỳ dữ liệu cá nhân nào của người dùng. Mã nguồn của extension cũng là mã nguồn mở và minh bạch.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Extension hoạt động trên những trình duyệt nào?</span>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>YouTube Enhancer hoạt động trên các trình duyệt dựa trên Chromium như Google Chrome, Microsoft Edge, Brave, Opera và Vivaldi.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Extension có làm chậm YouTube không?</span>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Extension được tối ưu hóa để sử dụng tài nguyên tối thiểu. Trong hầu hết các trường hợp, bạn sẽ không nhận thấy bất kỳ tác động đáng kể nào đến hiệu suất.</p>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Làm thế nào để gỡ cài đặt extension?</span>
+                        <i class="fas fa-chevron-down accordion-icon"></i>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Để gỡ cài đặt, hãy vào trang quản lý extension (chrome://extensions/ hoặc edge://extensions/), tìm YouTube Enhancer và nhấp vào nút "Remove" hoặc biểu tượng thùng rác.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>YouTube Enhancer</h3>
+                <p>Nâng cao trải nghiệm YouTube của bạn với tiện ích mở rộng miễn phí.</p>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                </div>
+                
+                <p>&copy; 2025 YouTube Enhancer. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS animation
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+        
+        // Tab switching
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                document.querySelector(`.tab-content[data-tab="${tabId}"]`).classList.add('active');
+            });
+        });
+        
+        // Accordion functionality
+        const accordionItems = document.querySelectorAll('.accordion-item');
+        
+        accordionItems.forEach(item => {
+            const header = item.querySelector('.accordion-header');
+            const content = item.querySelector('.accordion-content');
+            
+            header.addEventListener('click', () => {
+                // Close all other items
+                accordionItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.accordion-content').classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                item.classList.toggle('active');
+                content.classList.toggle('active');
+            });
+        });
+        
+        // Scroll animation
+        const scrollElements = document.querySelectorAll('.fade-in');
+        
+        const elementInView = (el, percentageScroll = 100) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop <= 
+                ((window.innerHeight || document.documentElement.clientHeight) * (percentageScroll/100))
+            );
+        };
+        
+        const displayScrollElement = (element) => {
+            element.classList.add('show');
+        };
+        
+        const hideScrollElement = (element) => {
+            element.classList.remove('show');
+        };
+        
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 90)) {
+                    displayScrollElement(el);
+                } else {
+                    hideScrollElement(el);
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', () => {
+            handleScrollAnimation();
+        });
+        
+        // Simulate download
+        function simulateDownload() {
+            // Tạo một thẻ a ẩn để tải xuống
+            const downloadLink = document.createElement('a');
+            downloadLink.href = 'TungBlockYoutubeAds.zip'; // Đường dẫn đến file ZIP của bạn
+            downloadLink.download = 'TungBlockYoutubeAds-v1.1.zip'; // Tên file khi tải xuống
+            
+            // Thêm vào document, click, và xóa
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            
+            // Hiển thị thông báo thành công (tùy chọn)
+            const notification = document.createElement('div');
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.background = '#4CAF50';
+            notification.style.color = 'white';
+            notification.style.padding = '15px 20px';
+            notification.style.borderRadius = '4px';
+            notification.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
+            notification.style.zIndex = '1000';
+            notification.textContent = 'Đang tải xuống TungBlockYoutubeAds-v1.1.zip...';
+            
+            document.body.appendChild(notification);
+            
+            // Xóa thông báo sau 3 giây
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 3000);
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
